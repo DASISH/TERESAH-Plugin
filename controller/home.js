@@ -1,8 +1,6 @@
 var Home = portal.controller('HomeCtrl', ['$scope', 'ui',  'Item', function($scope, $ui, $item) {
 	
         $scope.cloud = $item.data;
-        
-	$ui.user.signedin();
 	
         $("#cloud").jQCloud($scope.cloud);
         

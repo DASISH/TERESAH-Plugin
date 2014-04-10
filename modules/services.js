@@ -11,43 +11,6 @@ portal.factory("ui", function($window, $rootScope, $cookies, Restangular, $locat
                 return $location.search();
                 ;
             }
-        },
-        user: {
-            data: false,
-            signedin: function(callback) {
-                if (ui.user.data == false) {
-                    if ($cookies.logged) {
-                        Restangular.one("cookie/").get().then(function(data) {
-                            data = {name: data.name, id: data.id, mail: data.mail, login: data.login, level: data.level, keys: data.keys}
-                            ui.user.data = data;
-                            if (callback) {
-                                return callback(ui.user.data);
-                            }
-                        });
-                    } else {
-                        ui.user.data = false;
-                        if (callback) {
-                            return false;
-                        }
-                    }
-                }
-            },
-            signout: function(callback) {
-                if ($cookies.logged) {
-                    Restangular.one("signout").get().then(function(data) {
-
-                        if (callback) {
-                            return callback(data);
-                        }
-
-                        if (data.signedout == true) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    });
-                }
-            }
         }
     };
     return ui;
@@ -68,9 +31,7 @@ portal.factory("ui", function($window, $rootScope, $cookies, Restangular, $locat
         routes: {
             tools: {
                 one: Restangular.one("tool/"),
-                link: Restangular.all("tool/facet"),
-                all: Restangular.all("tool"),
-                topic: Restangular.all("topic")
+                all: Restangular.all("tool")
             },
             facets: {
                 list: Restangular.all("facet/"),
@@ -83,15 +44,6 @@ portal.factory("ui", function($window, $rootScope, $cookies, Restangular, $locat
                 normal: Restangular.one("search/general/"),
                 faceted: Restangular.all("search/faceted/")
             },
-            user: {
-                signin: Restangular.all("login/"),
-                signup: Restangular.all("signup/"),
-                profile: Restangular.all("profile/"),
-                verify: Restangular.all("verify/"),
-                api_key_application: Restangular.all("api_key_application/")
-            },
-            oAuth: Restangular.all("oAuth"),
-            faq: Restangular.all("faq"),
             cloud: Restangular.all("cloud")
         },
         //Return Part
@@ -136,75 +88,7 @@ portal.factory("ui", function($window, $rootScope, $cookies, Restangular, $locat
                     });
                 }
             },
-            oAuth: function(provider, url, callback) {
-
-                if (typeof (callback) === 'undefined')
-                    callback = false;
-
-                return Item.routes.oAuth.one(provider).get({callback: url}).then(function(data) {
-                    if (callback) {
-                        callback(data.original);
-                    }
-                    Item.data = data.original;
-                    return data.original;
-                });
-            },
             tools: {
-                edit: {
-                    description: function(toolId, opt, callback) {
-                        if (typeof (callback) === 'undefined')
-                            callback = false;
-                        if (typeof (opt) === 'undefined') {
-                            x = {Error: "No input given"};
-                            if (callback == false) {
-                                return x;
-                            }
-                            else {
-                                return x;
-                            }
-                        } else {
-                            return Item.routes.tools.all.all(toolId).all("edit").post(opt).then(function(data) {
-                                if (callback) {
-                                    return callback(data);
-                                }
-                                Item.data = data.original;
-                                return data.original;
-                            });
-                        }
-                    }
-                },
-                insert: function(opt, callback) {
-
-                    if (typeof (opt) === 'undefined')
-                        opt = {};
-                    if (typeof (callback) === 'undefined')
-                        callback = false;
-
-                    return Item.routes.tools.all.post(opt).then(function(data) {
-                        if (callback) {
-                            callback(data.original);
-                        }
-                        Item.data = data.original;
-                        return data.original;
-                    });
-
-                },
-                link: function(opt, callback) {
-
-                    if (typeof (opt) === 'undefined')
-                        opt = {};
-                    if (typeof (callback) === 'undefined')
-                        callback = false;
-
-                    return Item.routes.tools.link.post(opt).then(function(data) {
-                        if (callback) {
-                            callback(data.original);
-                        }
-                        Item.data = data.original;
-                        return data.original;
-                    });
-
-                },
                 all: function(opt, callback) {
 
                     if (typeof (opt) === 'undefined')
@@ -237,90 +121,6 @@ portal.factory("ui", function($window, $rootScope, $cookies, Restangular, $locat
                         }
                         return data.original;
                     });
-                },
-                comments: {
-                    get: function(item, callback) {
-
-                        if (typeof (callback) === 'undefined')
-                            callback = false;
-
-                        return Item.routes.tools.all.one(item).one("comments").get().then(function(data) {
-                            Item.data = data.original;
-                            if (callback) {
-                                callback(data.original);
-                            }
-                            return data.original;
-                        });
-                    },
-                    post: function(item, options, callback) {
-
-                        if (typeof (callback) === 'undefined')
-                            callback = false;
-
-                        return Item.routes.tools.all.one(item).all("comments").post(options).then(function(data) {
-                            Item.data = data.original;
-                            if (callback) {
-                                callback(data.original);
-                            }
-                            return data.original;
-                        });
-                    }
-                },
-                forum: {
-                    get: function(item, callback) {
-
-                        if (typeof (callback) === 'undefined')
-                            callback = false;
-
-                        return Item.routes.tools.all.one(item).one("forum").get().then(function(data) {
-                            Item.data = data.original;
-                            if (callback) {
-                                callback(data.original);
-                            }
-                            return data.original;
-                        });
-                    },
-                    post: function(item, options, callback) {
-
-                        if (typeof (callback) === 'undefined')
-                            callback = false;
-
-                        return Item.routes.tools.all.one(item).all("forum").post(options).then(function(data) {
-                            Item.data = data.original;
-                            if (callback) {
-                                callback(data.original);
-                            }
-                            return data.original;
-                        });
-                    },
-                    topic: {
-                        get: function(item, callback) {
-
-                            if (typeof (callback) === 'undefined')
-                                callback = false;
-
-                            return Item.routes.tools.topic.one(item).get().then(function(data) {
-                                Item.data = data.original;
-                                if (callback) {
-                                    callback(data.original);
-                                }
-                                return data.original;
-                            });
-                        },
-                        post: function(itemID, topicId, options, callback) {
-
-                            if (typeof (callback) === 'undefined')
-                                callback = false;
-
-                            return Item.routes.tools.topic.all(itemID).all(topicId).post(options).then(function(data) {
-                                Item.data = data.original;
-                                if (callback) {
-                                    callback(data.original);
-                                }
-                                return data.original;
-                            });
-                        }
-                    }
                 }
             },
             facets: {
@@ -377,18 +177,6 @@ portal.factory("ui", function($window, $rootScope, $cookies, Restangular, $locat
                             }
                             return data.original;
                         });
-                    },
-                    insert: function(key, input, callback) {
-
-                        if (typeof (callback) === 'undefined')
-                            callback = false;
-                        return Item.routes.facets.search.all(key).post(input).then(function(data) {
-                            Item.data = data.original;
-                            if (callback) {
-                                callback(data.original);
-                            }
-                            return data.original;
-                        });
                     }
                 }
             },
@@ -434,80 +222,6 @@ portal.factory("ui", function($window, $rootScope, $cookies, Restangular, $locat
                         return data.original;
                     });
                 }
-            },
-            user: {
-                signin: function(obj, callback) {
-
-                    if (typeof (callback) === 'undefined')
-                        callback = false;
-
-                    return Item.routes.user.signin.post(obj).then(function(data) {
-                        if (callback) {
-                            callback(data);
-                        }
-                        return data.original;
-                    }, function(data) {
-                        if (callback) {
-                            callback(data.data);
-                        }
-                        //return data.original;                                            
-                    });
-
-                },
-                signup: function(obj, callback) {
-
-                    if (typeof (callback) === 'undefined')
-                        callback = false;
-
-                    return Item.routes.user.signup.post(obj).then(function(data) {
-                        if (callback) {
-                            callback(data);
-                        }
-                        return data.original;
-                    });
-
-                },
-                profile: {
-                    edit: function(opt, callback) {
-                        if (typeof (callback) === 'undefined')
-                            callback = false;
-                        if (typeof (opt) === 'undefined') {
-                            return {Error: "No input given"};
-                        } else {
-                            return Item.routes.user.profile.post(opt).then(function(data) {
-                                if (callback !== false) {
-                                    return callback(data);
-                                }
-                                Item.data = data.original;
-                                return data.original;
-                            });
-                        }
-                    },
-                    apply_for_key: function(opt, callback) {
-                        if (typeof (callback) === 'undefined')
-                            callback = false;
-                        if (typeof (opt) === 'undefined') {
-                            return {Error: "No input given"};
-                        } else {
-                            return Item.routes.user.api_key_application.post(opt).then(function(data) {
-                                if (callback)
-                                    return callback(data);
-                            });
-                        }
-                    }
-                }
-            },
-            faq: function(callback) {
-                if (typeof (callback) === 'undefined')
-                    callback = false;
-
-                return Item.routes.faq.getList().then(function(data) {
-                    if (callback) {
-                        callback(data);
-                    }
-                    return data.original;
-                });
-
             },
             cloud: function(callback) {
                 if (typeof (callback) === 'undefined'){

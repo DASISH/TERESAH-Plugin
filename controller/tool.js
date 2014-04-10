@@ -8,109 +8,6 @@ var Tool = portal.controller('ToolCtrl', ['$scope', 'ui',  'Item', '$rootScope',
 	}
 	$scope.ui = {
 		share : "http://"+document.domain+"/API/share/" + $scope.item.identifier.shortname,
-		quickLinking : {
-			status : {
-				show : false,
-				message : false
-			},
-			applied : {
-			},
-			show : false,
-			facets : {
-				facets : [],
-				facet : null
-			},
-			link : function(facet, label, callback) {
-				input = {facets : [{"facet" : facet, "element" : label}], tool: $scope.item.identifier.id}
-				
-				$item.resolver.tools.link(input, function(data) {
-					if(data.status == "error") {
-						$scope.ui.quickLinking.status.show = true;
-						$scope.ui.quickLinking.status.message = data.message;
-					} else {
-						if(callback) {
-							callback(data);
-						} else {
-							if(!$scope.ui.quickLinking.applied[facet]) {
-								$scope.ui.quickLinking.applied[facet] = {};
-							}
-							$scope.ui.quickLinking.applied[facet][label] = true;
-						}
-					}
-				});
-			},
-			get : function() {
-				this.show = !this.show;
-				if(this.show) {
-					$item.resolver.facets.list({"all" : true}, function(data) {
-						x = []
-						angular.forEach(data, function(val) {
-							val["option"] = { case_insensitivity : true };
-							x.push(val);
-						});
-						$scope.ui.quickLinking.facets.facets = x;
-					});
-				}
-			},
-			search : {
-				model : null,
-				get : function(facet) {
-					if(facet) {
-						$scope.ui.quickLinking.method = "link";
-					}
-				},
-				search : function(facet) {
-					option = { request : $scope.ui.quickLinking.search.model, limit : 5 };
-					
-					$item.resolver.facets.facet.search(facet, option, function(data) {
-						$scope.ui.quickLinking.search.items = data.facets;
-					});
-				},
-				items : []
-			},
-			new : {
-				get : function (facet) {
-					if(facet) {
-						$scope.ui.quickLinking.method = "new";
-						
-						$item.resolver.facets.facet.options(facet, function(data) {
-							if(data.status && data.status == "error") {
-								$scope.ui.quickLinking.new.nofield = true;
-							} else {
-								$scope.ui.quickLinking.new.nofield = false;
-								$scope.ui.quickLinking.new.fields = {}
-								angular.forEach(data, function(value, k) {
-									
-									$scope.ui.quickLinking.new.fields[k] = value;
-									$scope.ui.quickLinking.new.fields[k]["val"] = null;
-								});
-								$scope.ui.quickLinking.new.active = {};
-								$scope.ui.quickLinking.new.active[facet] = true;
-							}
-						});
-					}
-				},
-				fields : {},
-				submit : function (facet) {
-					input = {}
-					angular.forEach($scope.ui.quickLinking.new.fields, function(value, k) {
-						input[k] = value.val;
-					});
-					$item.resolver.facets.facet.insert(facet, input, function(insert) {
-						if(insert.status == "success") {
-							$scope.ui.quickLinking.link($scope.ui.quickLinking.facets.facet, insert.identifier.id, function(data) {
-								$scope.ui.quickLinking.new.error = false;
-								$scope.ui.quickLinking.method = "";
-							});
-						} else {
-							$scope.ui.quickLinking.new.error = true;
-							$scope.ui.quickLinking.new.message = insert.message;
-						}
-					});
-					
-				}
-			}
-		},
 		description : {
 			edit : {
 				show : false,
@@ -132,7 +29,6 @@ var Tool = portal.controller('ToolCtrl', ['$scope', 'ui',  'Item', '$rootScope',
 				}
 			}
 		},
-		page : "Details",
 		sections : {
 			list : {},
 			active : 0,
@@ -149,16 +45,6 @@ var Tool = portal.controller('ToolCtrl', ['$scope', 'ui',  'Item', '$rootScope',
 						$scope.ui.sections.active = $scope.ui.sections.active + 1;
 					}
 				});
-			}
-		},
-		user : {
-			data : false,
-			signedin : function () { 
-				if($root.user) {
-					if($root.user.signedin) {
-						$scope.ui.user.data = $root.user;
-					}
-				}
 			}
 		},
 		//UI TOOLS
@@ -220,115 +106,10 @@ var Tool = portal.controller('ToolCtrl', ['$scope', 'ui',  'Item', '$rootScope',
 				selected : null
 			},
 			show : true
-		},
-		comments : {
-			form : {
-				submit : function() {
-					$item.resolver.tools.comments.post($scope.item.identifier.id, $scope.ui.comments.form.data, function(data) {
-						if(data.Error) {
-							$scope.ui.comments.form.error = data.Error;
-						} else {
-							$scope.ui.comments.form.error = false;
-							$scope.ui.comments.get();
-							$scope.ui.comments.form.active = false;
-						}
-					});
-				},
-				data : {},
-				error : false
-			},
-			get : function() {
-				$item.resolver.tools.comments.get($scope.item.identifier.id, function(data) {
-					$scope.ui.comments.list = data.comments;
-				});
-			},
-			list : {},
-			active : false,
-			activate : function() {
-				this.active = !this.active;
-				if(this.active == true) {
-					$scope.ui.forum.active = false;
-					this.get();
-				}
-			}	
-		},
-		forum : {
-			form : {
-				submit : function() {
-					$item.resolver.tools.forum.post($scope.item.identifier.id, $scope.ui.forum.form.data, function(data) {
-						if(data.Error) {
-							$scope.ui.forum.form.error = data.Error;
-						} else {
-							$scope.ui.forum.form.error = false;
-							$scope.ui.forum.get();
-							$scope.ui.forum.form.active = false;
-						}
-					});
-				},
-				data : {},
-				error : false
-			},
-			get : function() {
-				$item.resolver.tools.forum.get($scope.item.identifier.id, function(data) {
-					$scope.ui.forum.list = data.comments;
-				});
-			},
-			list : {},
-			active : false,
-			activate : function() {
-				this.active = !this.active;
-				if(this.active == true) {
-					$scope.ui.comments.active = false;
-					this.get();
-				}
-			},
-			topic : {
-				form : {
-					submit : function() {
-						$item.resolver.tools.forum.topic.post($scope.item.identifier.id, $scope.ui.forum.topic.id, $scope.ui.forum.topic.form.data, function(data) {
-							if(data.Error) {
-								$scope.ui.forum.topic.form.error = data.Error;
-							} else {
-								$scope.ui.forum.topic.form.error = false;
-								$scope.ui.forum.topic.read($scope.ui.forum.topic.id);
-								$scope.ui.forum.topic.form.active = false;
-							}
-						});
-					},
-					data : {},
-					error : false,
-					active : false
-				},
-				read : function(id) {
-					$item.resolver.tools.forum.topic.get(id, function(data) {
-						$scope.ui.forum.topic.id = id;
-						$scope.ui.forum.topic.list = data.topic;
-						$scope.ui.forum.topic.active = true;
-					});
-					
-				},
-				new : function() {
-					return true;
-					$item.resolver.tools.forum.topic.post($scope.item.identifier.id, $scope.ui.forum.topic.id, $scope.ui.forum.form.data, function(data) {
-						if(data.Error) {
-							$scope.ui.forum.topic.form.error = data.Error;
-						} else {
-							$scope.ui.forum.topic.form.error = false;
-							$scope.ui.forum.topic.read($scope.ui.forum.topic.id);
-							$scope.ui.forum.topic.form.active = false;
-						}
-					});
-				},
-				list : {},
-				data : {},
-				id : false,
-				active : false
-			}
 		}
 	};
 	//
 	$ui.title("Tool | " + $scope.item.descriptions.title);
-	$scope.ui.user.signedin();
 	
 	//exec
 }]);

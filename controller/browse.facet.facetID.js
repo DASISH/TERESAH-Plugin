@@ -19,8 +19,6 @@ var BrowseCtrl = portal.controller('BrowseCtrl', ['$scope', 'ui', '$route', 'Ite
 		}
 	};
 	
-	$ui.user.signedin();
-	
 	$ui.title("Browse by Facet");
 	
 	//exec

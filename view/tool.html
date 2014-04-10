@@ -1,17 +1,10 @@
 <section id="viewHeader">
 	<div class="page-header">
-		<div class="pull-right">
-			<div class="btn-group btn-group-sm">
-				<a class="btn btn-sm btn-default" ng-click="ui.page = 'Details'" ng-class="{'btn-primary': (ui.page == 'Details')}">{{ 'details' | translate }}</a>
-				<a class="btn btn-sm btn-default" ng-href="#/link/{{item.identifier.id}}" ng-show="ui.user.data.signedin">{{ 'add a label' | translate }}</a>
-				<a class="btn btn-sm btn-default" ng-click="ui.page = 'Forum&Comments'" ng-class="{'btn-primary': (ui.page == 'Forum&Comments')}">{{ 'forum' | translate }}</a>
-			</div>
-		</div>
 		<h1 ng-bind="item.descriptions.title"></h1>
 	</div>
 </section>
 
-<section ng-show="ui.page == 'Details'">
+<section>
 <div class="row">
 
 	<div class="col-lg-8">
@@ -197,9 +190,6 @@
 	</div>
 	<div class="col-lg-4">
 		<section id ="informations">
-			<div class="pull-right" ng-show="ui.user.data.signedin">
-				<a class="btn btn-default" ng-class="{'btn-primary' : ui.quickLinking.show}" ng-click="ui.quickLinking.get()"><span class="glyphicon glyphicon-link"></span></a>
-			</div>
 			<h2>{{ 'details' | translate }}</h2>
 			<dl ng-show="!ui.quickLinking.show">
 				<dt ng-show="item.type">{{ 'tool type' | translate }}</dt>
@@ -217,62 +207,10 @@
 				<dt ng-show="item.platform">{{ 'platform(s)' | translate }}</dt>
 					<dd ng-repeat="os in item.platform" ng-bind="os"></dd>
 				<dt ng-show="item.developers">{{ 'developer(s)' | translate }}</dt>
-                                <dd ng-repeat="developer in item.developers"><a ng-href="#/facet/Developer/{{developer.identifier}}" ng-bind="developer.name"></a></dd>
-                                <dt ng-show="item.similar">{{ 'similar tools' | translate }}</dt>
-                                <dd ng-repeat="similar in item.similar"><a ng-href="#/tool/{{similar.shortname}}" ng-bind="similar.title"></a></dd>        
+                	<dd ng-repeat="developer in item.developers"><a ng-href="#/facet/Developer/{{developer.identifier}}" ng-bind="developer.name"></a></dd>
+                <dt ng-show="item.similar">{{ 'similar tools' | translate }}</dt>
+                	<dd ng-repeat="similar in item.similar"><a ng-href="#/tool/{{similar.shortname}}" ng-bind="similar.title"></a></dd>        
 			</dl>
-			<section ng-show="ui.quickLinking.show" class="form-horizontal" role="form">
-				<div class="form-group">
-					<label for="facetType" class="col-lg-4 control-label">{{ 'facet type' | translate }}</label>
-					<div class="col-lg-8">
-						<select ng-model="ui.quickLinking.facets.facet"  ng-options="c.facetParam as c.facetLegend for c in ui.quickLinking.facets.facets" class="form-control" id="facetType" ng-change="ui.quickLinking.method = ''"><option value="">-- {{ 'choose facet' | translate }} --</option></select>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-lg-offset-4 col-lg-8">
-						<div class="btn-group btn-group-sm btn-group-justified btn-block">
-							<a class="btn btn-sm btn-default" ng-class="{'btn-primary' : (ui.quickLinking.method == 'link')}" ng-click="ui.quickLinking.search.get(ui.quickLinking.facets.facet)"><span class="glyphicon glyphicon-search"></span></a>
-							<a class="btn btn-sm btn-default" ng-class="{'btn-primary' : (ui.quickLinking.method == 'new')}" ng-click="ui.quickLinking.new.get(ui.quickLinking.facets.facet)"><span class="glyphicon glyphicon-plus"></span></a>
-						</div>
-					</div>
-				</div>
-				<section id="linkingForm" ng-show="ui.quickLinking.method == 'link'">
-					<div class="form-group">
-						<label for="searchModel" class="col-lg-4">{{ 'query' | translate }}</label>
-						<div class="col-lg-8">
-							<input class="form-control" ng-model="ui.quickLinking.search.model" placeholder="Type something here" id="searchModel" ng-change="ui.quickLinking.search.search(ui.quickLinking.facets.facet)" />
-						</div>
-					</div>
-					<div class="form-group" ng-repeat="label in ui.quickLinking.search.items">
-						<div class="col-lg-4" style="text-align:center;">
-							<a class="btn btn-sm btn-default" ng-click="ui.quickLinking.link(ui.quickLinking.facets.facet, label.id)" ng-show="!ui.quickLinking.applied[ui.quickLinking.facets.facet][label.id]">{{ 'add' | translate }}</a>
-							<span class="btn btn-sm btn-success" ng-show="ui.quickLinking.applied[ui.quickLinking.facets.facet][label.id]">{{ 'applied' | translate }}</span>
-						</div>
-						<div class="col-lg-8" ng-bind="label.name">
-						</div>
-					</div>
-				</section>
-				<section id="newFacetForm" ng-show="ui.quickLinking.method == 'new'">
-					<div class="alert alert-warning" ng-show="ui.quickLinking.new.nofield">
-						{{ 'this facet is not available for new entries.' | translate }}
-					</div>
-					<form class="form-horizontal" ng-submit="ui.quickLinking.new.submit(ui.quickLinking.facets.facet)" ng-show="!ui.quickLinking.new.nofield">
-					
-						<div class="form-group" ng-repeat="(k, field) in ui.quickLinking.new.fields">
-							<label for="t{{k}}" ng-bind="field.legend" class="col-lg-2 control-label"></label>
-							<div class="col-lg-10">
-								<input type="{{field.type}}" class="form-control" id="t{{k}}" placeholder="{{field.legend}}" ng-model="ui.quickLinking.new.fields[k].val">
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-lg-offset-2 col-lg-10">
-								<button type="submit" class="btn btn-primary">{{ 'save and link to tool' | translate }}</button>
-							</div>
-						</div>
-					</form>
-				</section>
-			</section>
-			<hr />
 		</section>
 		<section id="share">
 			<h2 ng-bind="'share' | translate"></h2>
@@ -318,188 +256,6 @@
 			</div>
 			<hr />
 		</section>
-		<section id="blocks" ng-show="ui.user.data.signedin">
-			<span class="pull-right btn btn-default" ng-click="ui.description.edit.show = !ui.description.edit.show;">
-                            <span class="glyphicon" ng-class="{'glyphicon-eye-close' : ui.description.edit.show,'glyphicon-eye-open' : !ui.description.edit.show}"></span>
-                            <span ng-show="ui.description.edit.show">{{ 'hide' | translate }}</span>
-                            <span ng-show="!ui.description.edit.show">{{ 'show' | translate }}</span>
-                        </span>
-			<h2>{{ 'edit description' | translate }}</h2>
-			<form role="form" ng-submit="ui.description.edit.submit()" ng-show="ui.description.edit.show ">
-				<div class="alert alert-danger" ng-bind="ui.description.edit.response.Error" ng-show="ui.description.edit.response.Error"></div>
-				<div class="alert alert-success" ng-bind="ui.description.edit.response.Success" ng-show="ui.description.edit.response.Success"></div>
-
-				<div class="form-group">
-					<label for="tTitle">{{ 'title' | translate }}<</label>
-					<input type="text" class="form-control" id="tTitle" placeholder="Title" ng-model="ui.description.edit.data.name">
-				</div>
-				<div class="form-group">
-					<label for="tDescription">{{ 'description' | translate }}</label>
-					<textarea class="form-control" id="tDescription" placeholder="Description" ng-model="ui.description.edit.data.description"></textarea>
-				</div>
-				<div class="form-group">
-					<label for="tVersion">{{ 'version' | translate }}</label>
-					<input type="text" class="form-control" id="tVersion" placeholder="Version" ng-model="ui.description.edit.data.version">
-				</div>
-				<div class="form-group">
-					<label for="tHomepage">{{ 'homepage' | translate }}</label>
-					<input type="url" class="form-control" id="tHomepage" placeholder="Homepage" ng-model="ui.description.edit.data.homepage">
-				</div>
-				<div class="form-group">
-					<label for="tAvail">{{ 'available from' | translate }}</label>
-					<input type="date" class="form-control" id="tAvail" placeholder="YYYY-MM-DD" ng-model="ui.description.edit.data.available_from">
-				</div>
-				<button type="submit" class="btn btn-default">{{ 'submit' | translate }}</button>
-			</form>
-
-			<hr />
-		</section>
 	</div>
 </div>
-</section>
-
-
-
-
-<section ng-show="ui.page == 'Forum&Comments'">
-	<div class="row">
-
-		<div>
-			<div class="btn-group">
-				<button type="button" class="btn btn-default" ng-class="{'btn-primary' : ui.forum.active}" ng-click="ui.forum.activate();">{{ 'forum' | translate }}</button>
-				<button type="button" class="btn btn-default" ng-class="{'btn-primary' : ui.comments.active}" ng-click="ui.comments.activate();">{{ 'comments' | translate }}</button>
-			</div>
-			
-			<div ng-show="ui.forum.active" class="pull-right">
-				<button ng-show="ui.forum.topic.active" ng-click="ui.forum.topic.active = false" class="btn btn-warning">{{ 'close topic' | translate }}</button>
-				<button class="btn btn-primary" ng-click="ui.forum.form.active = !ui.forum.form.active" ng-show="ui.forum.active && !ui.forum.topic.active && ui.user.data.signedin">{{ 'new Subject' | translate }}</button>
-				<button class="btn btn-primary" ng-click="ui.forum.form.active = !ui.forum.form.active" ng-show="ui.forum.active && ui.forum.topic.active && ui.user.data.signedin">{{ 'close Subject' | translate }}</button>
-			</div>
-			<div ng-show="ui.comments.active" class="pull-right">
-				<button class="btn btn-primary"  ng-click="ui.comments.form.active = true" ng-show="!ui.comments.form.active && ui.user.data.signedin">{{ 'new Comment' | translate }}</button>
-				<button class="btn btn-primary"  ng-click="ui.comments.form.active = false" ng-show="ui.comments.form.active">{{ 'close form' | translate }}</button>
-			</div>
-		</div>
-
-	</div>
-
-	<div class="row" ng-show="ui.comments.active">
-		<h2>{{ 'comments' | translate }}</h2>
-		<div class="container " style="margin-bottom:40px;" ng-show="ui.comments.list && !ui.comments.form.active">
-			<div class="row col-lg-10 col-lg-offset-1" ng-repeat="comment in ui.comments.list">
-				<div class="container">
-					<div class="col-lg-2">
-						<h4 style="text-align:center;">{{comment.user.name}}</h4>
-						<img src="http://www.gravatar.com/avatar/{{comment.user.mail}}?s=80" alt="..." class="img-circle">
-					</div>
-					<div class="col-lg-10">
-						<h3>{{comment.comment.subject}}</h3>
-						<p ng-bind-html="comment.comment.text | newline "></p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="container">
-			<form class="form-horizontal" role="form" ng-submit="ui.comments.form.submit()" ng-show="ui.comments.form.active">
-				<hr />
-				<div class="alert alert-success" ng-show="ui.comments.form.error">{{ui.comments.form.error}}</div>
-				<div class="form-group">
-					<label for="title" class="col-lg-2 control-label">{{ 'title' | translate }}</label>
-					<div class="col-lg-10">
-						<input type="text" ng-model="ui.comments.form.data.title" class="form-control" id="title" placeholder="{{ 'title' | translate }}">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="Message" class="col-lg-2 control-label">{{ 'message' | translate }}</label>
-					<div class="col-lg-10">
-						<textarea ng-model="ui.comments.form.data.text" id="Message" class="form-control"></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-lg-offset-2 col-lg-10">
-						<button type="submit" class="btn btn-default">{{ 'comment' | translate }}</button>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
-
-	<div class="row" ng-show="ui.forum.active">
-		
-		<div class="container " style="margin-bottom:40px;" ng-show="ui.forum.topic.active">
-			<div class="row col-lg-10 col-lg-offset-1" ng-repeat="comment in ui.forum.topic.list" >
-				<div class="container">
-					<div class="col-lg-2" style="text-align:center;">
-						<h4>{{comment.user.name}}</h4>
-						<img src="http://www.gravatar.com/avatar/{{comment.user.mail}}?s=80" alt="..." class="img-circle">
-					</div>
-					<div class="col-lg-10">
-						<h3>{{comment.comment.subject}}</h3>
-						<p ng-bind-html="comment.comment.text | newline "></p>
-					</div>
-				</div>
-			</div>
-			<div class="row col-lg-10 col-lg-offset-1">
-				<button class="btn btn-primary" ng-click="ui.forum.topic.form.active = !ui.forum.topic.form.active" ng-show="!ui.forum.topic.form.active">{{ 'reply' | translate }}</button>
-				<hr />
-				<form class="form-horizontal" role="form" ng-submit="ui.forum.topic.form.submit()" ng-show="ui.forum.topic.form.active">
-					<div class="alert alert-success" ng-show="ui.forum.topic.form.error">{{ui.forum.topic.form.error}}</div>
-					<div class="form-group">
-						<label for="title" class="col-lg-2 control-label">{{ 'title' | translate }}</label>
-						<div class="col-lg-10">
-							<input type="text" ng-model="ui.forum.topic.form.data.title" class="form-control" id="title" placeholder="{{ 'title' | translate }}">
-						</div>
-					</div>
-					<div class="form-group">
-						<label for="Message" class="col-lg-2 control-label">{{ 'message' | translate }}</label>
-						<div class="col-lg-10">
-							<textarea ng-model="ui.forum.topic.form.data.text" id="Message" class="form-control"></textarea>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-lg-offset-2 col-lg-10">
-							<button type="submit" class="btn btn-default">{{ 'reply' | translate }}</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		
-		<div class="row col-lg-10 col-lg-offset-1">
-			<form class="form-horizontal" role="form" ng-submit="ui.forum.form.submit()" ng-show="ui.forum.form.active">
-				<div class="alert alert-success" ng-show="ui.forum.form.error">{{ui.forum.topic.form.error}}</div>
-				<div class="form-group">
-					<label for="title" class="col-lg-2 control-label">{{ 'title' | translate }}</label>
-					<div class="col-lg-10">
-						<input type="text" ng-model="ui.forum.form.data.title" class="form-control" id="title" placeholder="{{ 'title' | translate }}">
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="Message" class="col-lg-2 control-label">{{ 'message' | translate }}</label>
-					<div class="col-lg-10">
-						<textarea ng-model="ui.forum.form.data.text" id="Message" class="form-control"></textarea>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="col-lg-offset-2 col-lg-10">
-						<button type="submit" class="btn btn-default">{{ 'new topic' | translate }}</button>
-					</div>
-				</div>
-			</form>
-		</div>
-		
-		<table class="table table-striped">
-			<thead>
-				<tr><th>{{ 'date' | translate }}</th><th>{{ 'title' | translate }}</th><th>{{ 'user' | translate }}</th></tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="topic in ui.forum.list">
-					<td>{{topic.comment.date}}</td>
-					<td><a ng-click="ui.forum.topic.read(topic.identifier)">{{topic.comment.subject}}</a></td>
-					<td>{{topic.user.name}}</td>
-				</tr>
-			</tbody>
-		</table>
-
-	</div>
 </section>

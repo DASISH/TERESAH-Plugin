@@ -14,3 +14,7 @@ TERESAH has been developed as part of the Data Service Infrastructure for the So
 This app is provided to anyone who would like to :
 - Provide a browse function based on another TERESAH-tool registry.
 - Provide a tools registry without giving any possibility for a user to add data. 
+
+**Configure the plugin**
+
+- `./app.js` : Change API_URL value to redirect to the API Endpoint of your choice

@@ -30,44 +30,9 @@ var Top = portal.controller('TopCtrl', ['$scope', "$q", "$location", "$route", "
 					return "active";
 				}
 			}
-		},
-		user : {
-			data : false,
-			signedin : function () { $ui.user.signedin(function(data) {
-					o = {name : data.name, mail: data.mail, signedin : true, level: data.level };
-					$root.user = o;
-					$scope.ui.user.data = o;
-				}); 
-			},
-			signout : function () { $ui.user.signout(function(data) {
-					if(data.signedout == false) {
-						$root.user.signedin = false;
-						$scope.ui.user.data.signedin = false;
-					} else {
-						$root.user.signedin = true;
-						$scope.ui.user.data.signedin = true;
-					}
-				}); 
-			}
 		}
 	}
-	
-	$scope.ui.user.signedin();
-	
 	$scope.$on('$routeChangeStart', function(next, current) { 
 		$scope.ui.routes.active = current.controller;
-	});
-
-	$root.$on("USER_UPDATE", function(event, data){
-		console.log(data);
-		$scope.ui.user.data = data;
-		$root.user = data;
-	});
-	
-	//Watch for rootscope.user.signedin
-	$scope.$watch('user.signedin', function(status) {
-		if(status == true) {
-			$scope.ui.user.data = $root.user;
-		}
 	});
 }]);
