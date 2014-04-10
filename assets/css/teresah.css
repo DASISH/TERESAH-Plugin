@@ -77,12 +77,15 @@ body {
     }
 }
 
-
+.panel-info > .panel-heading {
+    color:black;
+    border-bottom-width: 0;
+}
 .panel-heading > .pull-right {
     margin-bottom: 0;
     margin-top: 0;
-    color:white;
-    font-size:90%;
+    color:inherit;
+    font-size:85%;
     line-height: inherit;
 }
 .panel-heading > .pull-right > a {

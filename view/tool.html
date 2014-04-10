@@ -46,7 +46,7 @@
 						<a class="btn" ng-repeat="prov in item.keyword | kTaxonomies" ng-click="ui.keywords.taxonomy.selected = prov" ng-class="{'btn-primary': (ui.keywords.taxonomy.selected == prov), 'btn-success' : (ui.keywords.taxonomy.selected != prov)}" ng-bind="prov" style="text-transform:capitalize;"></a>
 					</div>
 					<ul  class="list-inline" style="margin-top:10px;" ng-show="ui.keywords.show">
-                                            <li ng-repeat="kw in item.keyword |filter:{provider.domain : ui.keywords.provider.selected, provider.taxonomy : ui.keywords.taxonomy.selected}"  class="badge" style="margin-right:10px; margin-bottom:5px; text-transform:capitalize;"  ><a style="color:#FFF;" ng-href="#/facet/Keyword/{{kw.identifier}}" ng-bind="kw.keyword"></a></li>
+                                            <li ng-repeat="kw in item.keyword |filter:{provider.domain : ui.keywords.provider.selected, provider.taxonomy : ui.keywords.taxonomy.selected}"  class="badge" style="margin-right:10px; margin-bottom:5px; text-transform:capitalize;"  ><a ng-href="#/facet/Keyword/{{kw.identifier}}" ng-bind="kw.keyword"></a></li>
 					</ul>
 					<hr />
 				</section>
@@ -189,7 +189,7 @@
 		</div>
 	</div>
 	<div class="col-lg-4">
-		<section class="panel panel-info" id ="informations">
+		<section class="panel panel-primary" id ="informations">
 			<div class="panel-heading">
 				<h3 class="panel-title" ng-bind=" 'details' | translate "></h3>
 			</div>
@@ -216,7 +216,7 @@
 				</dl>
 			</div>
 		</section>
-		<section id="share" class="panel panel-primary">
+		<section id="share" class="panel panel-info">
 			<div class="panel-heading">
 				<div class="pull-right">
 					<a target="_blank" ng-href="http://www.facebook.com/sharer.php?u={{ui.share}}">
@@ -243,7 +243,7 @@
 				<h3  class="panel-title"ng-bind="'share' | translate"></h3>
 			</div>
 		</section>
-		<section id="availableDescriptions" ng-show="item.descriptions.description[1]"class="panel panel-info">
+		<section id="availableDescriptions" ng-show="item.descriptions.description[1]"class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title" ng-bind=" 'available descriptions' | translate "></h3>
 			</div>
@@ -253,7 +253,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="RDF" class="panel panel-info">
+		<section id="RDF" class="panel panel-primary">
 			<div class="panel-heading">
 				<h3 class="panel-title" ng-bind=" 'structured descriptor document' | translate"></h3>
 			</div>
@@ -266,7 +266,7 @@
 				</div>
 			</div>
 		</section>
-		<section id="blocks" ng-show="ui.sections.active > 0" class="panel panel-primary">
+		<section id="blocks" ng-show="ui.sections.active > 0" class="panel panel-info">
 			<div class="panel-heading">
 				<h3 class="panel-title" ng-bind="'available blocks' | translate"></h3>
 			</div>
