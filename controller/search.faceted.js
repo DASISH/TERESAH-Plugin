@@ -1,4 +1,4 @@
-var Faceted = portal.controller('FacetedCtrl', ['$scope', 'ui',  'Item', 'Restangular', '$rootScope', function($scope, $ui, $item, $rest, $root) {
+var Faceted = portal.controller('FacetedCtrl', ['$scope', 'ui',  'Item', 'Restangular', function($scope, $ui, $item, $rest) {
 	$scope.results = false;
 		
 	$scope.ui = {

@@ -1,9 +1,7 @@
 var Home = portal.controller('HomeCtrl', ['$scope', 'ui',  'Item', function($scope, $ui, $item) {
 	
-        $scope.cloud = $item.data;
-	
-        $("#cloud").jQCloud($scope.cloud);
-        
+    $scope.cloud = $item.data;
+    $("#cloud").jQCloud($scope.cloud);        
 	$ui.title("Home");
 	
 	//exec

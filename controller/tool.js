@@ -1,4 +1,4 @@
-var Tool = portal.controller('ToolCtrl', ['$scope', 'ui',  'Item', '$rootScope', '$modal', '$log', function($scope, $ui, $item, $root, $modal, $log) {
+var Tool = portal.controller('ToolCtrl', ['$scope', 'ui',  'Item', function($scope, $ui, $item) {
 
 	$scope.item = $item.data;
 	
