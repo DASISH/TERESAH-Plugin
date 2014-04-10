@@ -1,4 +1,4 @@
-var API_URL = "http://teresah.dev.dasish.eu/API";
+var API_URL = "http://" + document.domain + ":8080/API";//"http://teresah.dev.dasish.eu/API";
 
 var portal = angular.module('toolRegistry', ['ui.bootstrap', 'restangular', 'ngCookies', 'ngSanitize', 'pascalprecht.translate']);
 portal.

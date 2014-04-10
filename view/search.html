@@ -1,10 +1,10 @@
 <div class="page-header">
-	<h2>{{ 'general search' | translate }}</h2>
+	<h2 ng-bind=" 'general search' | translate "></h2>
 	
 	<form class="form form-horizontal" ng-submit="ui.search()">
 		<div class="form-group">
-			<label for="searchInput" class="control-label col-sm-2">{{ 'search input' | translate }}</label>
-			<div class="col-sm-10">
+			<label for="searchInput" class="control-label col-sm-2" ng-bind="'search input' | translate "></label>
+			<div class="col-sm-4">
 				<input class="form-control" id="searchInput" ng-model="ui.params.request" />
 			</div>
 		</div>
@@ -13,33 +13,29 @@
 			<div class="col-sm-10">
 				<div class="btn-toolbar" role="toolbar">
 					<div class="btn-group" ng-click="ui.params.case_sensitivity = !ui.params.case_sensitivity;">
-						<span class="btn btn-default"><b>{{ 'case sensitive' | translate }}</b></span>
-						<span class="btn" ng-class="{'btn-default' : !(ui.params.case_sensitivity), 'btn-primary' : (ui.params.case_sensitivity)}" >
+						<span class="btn btn-sm btn-link"><b ng-bind="'case sensitive' | translate "></b></span>
+						<span class="btn btn-sm" ng-class="{'btn-default' : !(ui.params.case_sensitivity), 'btn-primary' : (ui.params.case_sensitivity)}" >
 							<span class="glyphicon glyphicon-off"></span>
 						</span>
 					</div>
 					<div class="btn-group" ng-click="ui.params.description = !ui.params.description;">
-						<span class="btn btn-default"><b>{{ 'show description' | translate }}</b></span>
-						<span class="btn" ng-class="{'btn-default' : !(ui.params.description), 'btn-primary' : (ui.params.description)}" >
+						<span class="btn btn-sm btn-link"><b ng-bind="'show description' | translate "></b></span>
+						<span class="btn btn-sm" ng-class="{'btn-default' : !(ui.params.description), 'btn-primary' : (ui.params.description)}" >
 							<span class="glyphicon glyphicon-off"></span>
 						</span>
 					</div>
 					<div class="btn-group">
-						<span class="btn btn-default"><b>{{ 'order by' | translate }}</b></span>
-						<span class="btn btn-default" ng-class="{'btn-primary' : ui.params.orderBy == 'title'}"  ng-click="ui.params.orderBy = 'title';">
-							{{ 'title' | translate }}
+						<span class="btn btn-sm btn-link"><b ng-bind="'order by' | translate "></b></span>
+						<span class="btn btn-sm btn-default" ng-class="{'btn-primary' : ui.params.orderBy == 'title'}"  ng-click="ui.params.orderBy = 'title';" ng-bind="'title' | translate ">
 						</span>
-						<span class="btn btn-default" ng-class="{'btn-primary' : ui.params.orderBy == 'identifier'}"  ng-click="ui.params.orderBy = 'identifier';">
-							{{ 'date' | translate }}
+						<span class="btn btn-sm btn-default" ng-class="{'btn-primary' : ui.params.orderBy == 'identifier'}"  ng-click="ui.params.orderBy = 'identifier';" ng-bind="'date' | translate ">
 						</span>
 					</div>
 					<div class="btn-group">
-						<span class="btn btn-default"><b>Order</b></span>
-						<span class="btn btn-default" ng-class="{'btn-primary' : ui.params.order == 'ASC'}"  ng-click="ui.params.order = 'ASC';">
-							{{ 'a-z' | translate }}
+						<span class="btn btn-sm btn-link"><b>Order</b></span>
+						<span class="btn btn-sm btn-default" ng-class="{'btn-primary' : ui.params.order == 'ASC'}"  ng-click="ui.params.order = 'ASC';" ng-bind="'a-z' | translate ">
 						</span>
-						<span class="btn btn-default" ng-class="{'btn-primary' : ui.params.order == 'DESC'}"  ng-click="ui.params.order = 'DESC';">
-							{{ 'z-a' | translate }}
+						<span class="btn btn-sm btn-default" ng-class="{'btn-primary' : ui.params.order == 'DESC'}"  ng-click="ui.params.order = 'DESC';" ng-bind="'z-a' | translate ">
 						</span>
 					</div>
 				</div>
@@ -49,15 +45,12 @@
 			<label class="control-label col-sm-2"></label>
 			<div class="col-sm-10">
 				<div class="btn-group">
-					<span class="btn btn-default"><b>Limit to</b></span>
-					<span class="btn btn-default" ng-class="{'btn-primary' : !(ui.params.limited)}"  ng-click="ui.params.limited = false;">
-						{{ 'keyword' | translate }}
+					<span class="btn btn-sm btn-link"><b>Limit to</b></span>
+					<span class="btn btn-sm btn-default" ng-class="{'btn-primary' : !(ui.params.limited)}"  ng-click="ui.params.limited = false;" ng-bind="'keyword' | translate ">
 					</span>
-					<span class="btn btn-default" ng-class="{'btn-primary' : ui.params.limited == 'nokeyword'}"  ng-click="ui.params.limited = 'nokeyword';">
-						{{ 'description' | translate }}
+					<span class="btn btn-sm btn-default" ng-class="{'btn-primary' : ui.params.limited == 'nokeyword'}"  ng-click="ui.params.limited = 'nokeyword';" ng-bind="'description' | translate ">
 					</span>
-					<span class="btn btn-default" ng-class="{'btn-primary' : ui.params.limited == 'title'}"  ng-click="ui.params.limited = 'title';">
-						{{ 'title' | translate }}
+					<span class="btn btn-sm btn-default" ng-class="{'btn-primary' : ui.params.limited == 'title'}"  ng-click="ui.params.limited = 'title';" ng-bind="'title' | translate ">
 					</span>
 				</div>
 			</div>
@@ -65,7 +58,7 @@
 		<div class="form-group">
 			<label for="searchInput" class="control-label col-sm-2"></label>
 			<div class="col-sm-10">
-				<button type="submit" class="btn btn-info">{{ 'search' | translate }}</button>
+				<button type="submit" class="btn btn-info" ng-bind="'search' | translate "></button>
 			</div>
 		</div>
 	</form>
@@ -76,7 +69,7 @@
 
 <div class="row" ng-show="ui.params.total > 1">
 	<div class="col-xs-12">
-            <p>{{ 'showing' | translate }} <span ng-bind="ui.params.start + 1"></span> {{ 'to' | translate }} <span ng-bind="ui.params.to"></span> {{ 'of' | translate }} <span ng-bind="ui.params.total"></span> {{ 'found' | translate }}</p>
+            <p ng-bind="'showing' | translate "> <span ng-bind="ui.params.start + 1"></span> <span ng-bind=" 'to' | translate "></span> <span ng-bind="ui.params.to"></span> <span  ng-bind=" 'of' | translate "></span> <span ng-bind="ui.params.total"></span> <span ng-bind=" 'found' | translate "></span></p>
         </div>
 </div>
 

@@ -95,3 +95,9 @@ body {
     color:inherit;
     text-decoration: none;
 }
+.panel-facet {
+    margin-bottom:0;
+}
+.panel-facet .panel-footer {
+    /*padding:0;*/
+}

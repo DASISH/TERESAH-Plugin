@@ -109,7 +109,6 @@ var Faceted = portal.controller('FacetedCtrl', ['$scope', 'ui',  'Item', 'Restan
 						}
 					}
 				});
-				
 				$item.resolver.search.faceted(constructor, function(data) {
 					if(data.status == "error") {
 						$scope.ui.facets.error = data.message;
