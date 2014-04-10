@@ -1,0 +1,19 @@
+<ol class="breadcrumb">
+  <li><a href="#/">{{ 'home' | translate }}</a></li>
+  <li><a href="#/facet">{{ 'browse by facet' | translate }}</a></li>
+</ol>
+
+<section id="viewHeader">
+	<div class="page-header">
+		<h1>{{ 'browse facets' | translate }}</h1>		
+	</div>
+</section>
+<section id="viewContent" ng-show="results.items">
+
+	<ul class="list-inline">
+		<li class="col-lg-3" ng-repeat="item in results.items" style="text-align:center; margin-bottom:30px;">
+			<a class="btn btn-lg btn-primary" ng-href="#/facet/{{item.facetParam}}"><span  ng-bind="item.facetLegend"></span> <span class="badge" ng-bind="item.facetTotal"></span></a>
+		</li>
+	</ul>
+
+</section>

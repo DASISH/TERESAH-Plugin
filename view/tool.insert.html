@@ -1,0 +1,96 @@
+<form>
+	<div class="page-header">
+		<h1>Add a new tool </h1>
+	</div>
+
+	<h2>Basic informations</h2>
+	<div class="row">
+		<div class="form-horizontal" role="form">
+			<div class="form-group">
+				<label for="nameOfTool" class="col-lg-2 control-label">{{ 'name of the tool' | translate }}</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="nameOfTool" ng-model="ui.form.fields.name" placeholder="{{ 'name' | translate }}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="homepageOfTool" class="col-lg-2 control-label">{{ 'homepage' | translate }}</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="homepageOfTool" ng-model="ui.form.fields.homepage" placeholder="{{ 'homepage' | translate }}"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="versionOfTool" class="col-lg-2 control-label">{{ 'version' | translate }}</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="versionOfTool" ng-model="ui.form.fields.version" placeholder="Version"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="availableOfTool" class="col-lg-2 control-label">{{ 'available from' | translate }}</label>
+				<div class="col-lg-10">
+					<input type="text" class="form-control" id="availableOfTool" ng-model="ui.form.fields.available_from" placeholder="Date"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="descOfTool" class="col-lg-2 control-label">{{ 'description' | translate }}</label>
+				<div class="col-lg-10">
+					<textarea class="form-control" id="descOfTool" ng-model="ui.form.fields.description"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<h2>{{ 'metadata' | translate }}</h2>
+	<div class="row">
+		<div class="col-lg-3" id="facetList">
+			<div class="panel-group">
+				<div class="panel panel-default" ng-repeat="facet in ui.facets.facets" ng-class="{'panel-primary' : facet.active, 'panel-success' : ui.facets.used[facet.facetParam].possibilities }">
+				<!-- Default panel contents -->
+					<div class="panel-heading" ng-click="facet.active = !facet.active;"><span class="badge pull-right">{{facet.facetTotal}}</span>{{facet.facetLegend}}</div>
+					<div class="panel-body" ng-show="ui.facets.used[facet.facetParam].possibilities">
+						<span ng-repeat="option in ui.facets.used[facet.facetParam].possibilities | filter:{active:true}" class="badge" ng-click="ui.facets.del(facet.facetParam, option.id)">{{option.name}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-9">
+			<div class="container">
+				<div class="row">
+						<ul class="list-inline">
+							<li ng-repeat="facet in ui.facets.facets | filter:{active:true}" class="col-lg-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										{{facet.facetLegend}}
+										<div class="pull-right panel-form row">
+											<div class="col-lg-3">
+												<input type="text" class="form-control input-sm" ng-model="facet.filter" placeholder="Filter your {{facet.facetLegend}}" ng-change="facet.possibilities = ui.facets.search(facet)"/>
+											</div>
+											<a class="btn btn-sm  btn-default" ng-class="{'active' : !facet.option.case_insensitivity}" ng-click="facet.option.case_insensitivity = !facet.option.case_insensitivity; facet.possibilities = ui.facets.search(facet);">{{ 'case sensitive' | translate }}</a>
+											<button type="button" class="close" data-dismiss="alert" aria-hidden="true"  ng-click="facet.active = !facet.active;">&times;</button>
+										</div>
+									</div>
+									<div class="panel-body">
+										<div style="max-height:400px; overflow:auto;">
+											<div class="checkbox" ng-repeat="keyword in facet.possibilities.facets" ng-click="ui.facets.select(facet, keyword)">
+												<label>
+													<input type="checkbox" id="{{facet.facetParam}}-{{keyword.id}}" ng-model="keyword.active" value="{{keyword.id}}" /> {{keyword.name}}
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</li>
+						</ul>
+				</div>
+				<section id="errors" ng-show="!results && ui.facets.error">
+					<div class="alert alert-warning">{{ui.facets.error}}</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div class="row">
+		<div class="row alert alert-warning" ng-show="ui.form.return.Error || ui.form.return.description.Error" ng-bind="ui.form.return.Error || ui.form.return.description.Error"></div>
+		<a class="btn btn-primary" ng-click="ui.form.save()">{{ 'save' | translate }}</a>
+	</div>
+</form>
