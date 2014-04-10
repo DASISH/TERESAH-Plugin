@@ -189,72 +189,92 @@
 		</div>
 	</div>
 	<div class="col-lg-4">
-		<section id ="informations">
-			<h2>{{ 'details' | translate }}</h2>
-			<dl ng-show="!ui.quickLinking.show">
-				<dt ng-show="item.type">{{ 'tool type' | translate }}</dt>
-					<dd ng-repeat="type in item.type" legend="{{type.uri}}"><a ng-href="#/facet/ToolType/{{type.identifier}}" ng-bind="type.type"></a></dd>
-				<dt ng-show="item.licence">{{ 'licence' | translate }}</dt>
-					<dd ng-repeat="licence in item.licence" ng-bind="licence.name"></dd>
-				<dt ng-show="item.licence">{{ 'licence type' | translate }}</dt>
-					<dd ng-repeat="licence in item.licence" ng-bind="licence.type"></dd>
-				<dt ng-show="item.suite">{{ 'suite' | translate }}</dt>
-					<dd ng-repeat="suite in item.suite" ng-bind="suite.name"></dd>
-				<dt ng-show="item.descriptions.homepage">{{ 'homepage' | translate }}</dt>
-					<dd><a ng-href="{{item.descriptions.homepage}}" ng-bind="item.descriptions.homepage"></a></dd>
-				<dt ng-show="item.applicationType">{{ 'application type(s)' | translate }}</dt>
-					<dd ng-repeat="os in item.applicationType" ng-bind="os.name"></dd>
-				<dt ng-show="item.platform">{{ 'platform(s)' | translate }}</dt>
-					<dd ng-repeat="os in item.platform" ng-bind="os"></dd>
-				<dt ng-show="item.developers">{{ 'developer(s)' | translate }}</dt>
-                	<dd ng-repeat="developer in item.developers"><a ng-href="#/facet/Developer/{{developer.identifier}}" ng-bind="developer.name"></a></dd>
-                <dt ng-show="item.similar">{{ 'similar tools' | translate }}</dt>
-                	<dd ng-repeat="similar in item.similar"><a ng-href="#/tool/{{similar.shortname}}" ng-bind="similar.title"></a></dd>        
-			</dl>
-		</section>
-		<section id="share">
-			<h2 ng-bind="'share' | translate"></h2>
-			<a target="_blank" ng-href="http://www.facebook.com/sharer.php?u={{ui.share}}">
-				<span class="icon-stack">
-					<i class="icon-check-empty icon-stack-base"></i>
-					<i class="icon-facebook"></i>
-				</span></a>
-			 | 
-			<a target="_blank" ng-href="https://plus.google.com/share?url={{ui.share}}">
-				<span class="icon-stack">
-					<i class="icon-check-empty icon-stack-base"></i>
-					<i class="icon-google-plus"></i>
-				</span></a>
-			 | 
-			<a target="_blank" ng-href="http://twitter.com/share?text=DASISH-TERESAH%20{{item.descriptions.title}}&url={{ui.share}}">
-				<span class="icon-stack">
-					<i class="icon-check-empty icon-stack-base"></i>
-					<i class="icon-twitter"></i>
-				</span></a>
-			
-		</section>
-		<section id="availableDescriptions" ng-show="item.descriptions.description[1]">
-			<h2>{{ 'available descriptions' | translate }}</h2>
-			<div class="btn-group btn-group-sm btn-block  btn-group-justified">
-				<a class="btn btn-sm btn-block" ng-repeat="desc in item.descriptions.description" ng-click="ui.changeDesc(desc)" ng-bind="desc.provider"></a>
+		<section class="panel panel-info" id ="informations">
+			<div class="panel-heading">
+				<h3 class="panel-title" ng-bind=" 'details' | translate "></h3>
 			</div>
-			<hr />
-		</section>
-		<section id="RDF">
-			<h2>{{ 'structured descriptor document' | translate }}</h2>
-			<div class="btn-group btn-group-sm btn-block  btn-group-justified">
-				<a class="btn btn-sm btn-block" rel="alternate" type="application/rdf+xml" ng-href="http://rdf.tools.dasish.org/tool/{{item.identifier.shortname}}/xml">RDF/XML format</a>
-				<a class="btn btn-sm btn-block" rel="alternate" type="text/rdf+n3" ng-href="http://rdf.tools.dasish.org/tool/{{item.identifier.shortname}}/turtle">N3/Turtle</a>
-				<a class="btn btn-sm btn-block" rel="alternate" type="application/json+rdf" ng-href="http://rdf.tools.dasish.org/tool/{{item.identifier.shortname}}/json">RDF/JSON</a>
-				<a class="btn btn-sm btn-block" rel="alternate" type="text/plain" ng-href="http://rdf.tools.dasish.org/tool/{{item.identifier.shortname}}/ntriples">N-Triples</a>
+			<div class="panel-body">
+				<dl>
+					<dt ng-show="item.type">{{ 'tool type' | translate }}</dt>
+						<dd ng-repeat="type in item.type" legend="{{type.uri}}"><a ng-href="#/facet/ToolType/{{type.identifier}}" ng-bind="type.type"></a></dd>
+					<dt ng-show="item.licence">{{ 'licence' | translate }}</dt>
+						<dd ng-repeat="licence in item.licence" ng-bind="licence.name"></dd>
+					<dt ng-show="item.licence">{{ 'licence type' | translate }}</dt>
+						<dd ng-repeat="licence in item.licence" ng-bind="licence.type"></dd>
+					<dt ng-show="item.suite">{{ 'suite' | translate }}</dt>
+						<dd ng-repeat="suite in item.suite" ng-bind="suite.name"></dd>
+					<dt ng-show="item.descriptions.homepage">{{ 'homepage' | translate }}</dt>
+						<dd><a ng-href="{{item.descriptions.homepage}}" ng-bind="item.descriptions.homepage"></a></dd>
+					<dt ng-show="item.applicationType">{{ 'application type(s)' | translate }}</dt>
+						<dd ng-repeat="os in item.applicationType" ng-bind="os.name"></dd>
+					<dt ng-show="item.platform">{{ 'platform(s)' | translate }}</dt>
+						<dd ng-repeat="os in item.platform" ng-bind="os"></dd>
+					<dt ng-show="item.developers">{{ 'developer(s)' | translate }}</dt>
+	                	<dd ng-repeat="developer in item.developers"><a ng-href="#/facet/Developer/{{developer.identifier}}" ng-bind="developer.name"></a></dd>
+	                <dt ng-show="item.similar">{{ 'similar tools' | translate }}</dt>
+	                	<dd ng-repeat="similar in item.similar"><a ng-href="#/tool/{{similar.shortname}}" ng-bind="similar.title"></a></dd>        
+				</dl>
 			</div>
 		</section>
-		<section id="blocks" ng-show="ui.sections.active > 0">
-			<h2>{{ 'available blocks' | translate }}</h2>
-			<div class="btn-group btn-group-sm btn-block  btn-group-justified">
-				<a class="btn btn-sm btn-block" ng-repeat="key in ui.sections.list" ng-show="key" ng-click="ui.sections.toggle(key)" ng-bind="key"></a>
+		<section id="share" class="panel panel-primary">
+			<div class="panel-heading">
+				<div class="pull-right">
+					<a target="_blank" ng-href="http://www.facebook.com/sharer.php?u={{ui.share}}">
+						<span class="icon-stack">
+							<i class="icon-check-empty icon-stack-base"></i>
+							<i class="icon-facebook"></i>
+						</span>
+					</a>
+					 | 
+					<a target="_blank" ng-href="https://plus.google.com/share?url={{ui.share}}">
+						<span class="icon-stack">
+							<i class="icon-check-empty icon-stack-base"></i>
+							<i class="icon-google-plus"></i>
+						</span>
+					</a>
+					 | 
+					<a target="_blank" ng-href="http://twitter.com/share?text=DASISH-TERESAH%20{{item.descriptions.title}}&url={{ui.share}}">
+						<span class="icon-stack">
+							<i class="icon-check-empty icon-stack-base"></i>
+							<i class="icon-twitter"></i>
+						</span>
+					</a>
+				</div>
+				<h3  class="panel-title"ng-bind="'share' | translate"></h3>
 			</div>
-			<hr />
+		</section>
+		<section id="availableDescriptions" ng-show="item.descriptions.description[1]"class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title" ng-bind=" 'available descriptions' | translate "></h3>
+			</div>
+			<div class="panel-body">
+				<div class="btn-group btn-group-sm btn-block  btn-group-justified">
+					<a class="btn btn-sm btn-block" ng-repeat="desc in item.descriptions.description" ng-click="ui.changeDesc(desc)" ng-bind="desc.provider"></a>
+				</div>
+			</div>
+		</section>
+		<section id="RDF" class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title" ng-bind=" 'structured descriptor document' | translate"></h3>
+			</div>
+			<div class="panel-body">
+				<div class="btn-group btn-group-justified">
+					<a class="btn btn-link" rel="alternate" type="application/rdf+xml" ng-href="http://rdf.tools.dasish.org/tool/{{item.identifier.shortname}}/xml">RDF/XML</a>
+					<a class="btn btn-link" rel="alternate" type="text/rdf+n3" ng-href="http://rdf.tools.dasish.org/tool/{{item.identifier.shortname}}/turtle">N3/Turtle</a>
+					<a class="btn btn-link" rel="alternate" type="application/json+rdf" ng-href="http://rdf.tools.dasish.org/tool/{{item.identifier.shortname}}/json">RDF/JSON</a>
+					<a class="btn btn-link" rel="alternate" type="text/plain" ng-href="http://rdf.tools.dasish.org/tool/{{item.identifier.shortname}}/ntriples">N-Triples</a>
+				</div>
+			</div>
+		</section>
+		<section id="blocks" ng-show="ui.sections.active > 0" class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title" ng-bind="'available blocks' | translate"></h3>
+			</div>
+			<div class="panel-body">
+				<div class="btn-group btn-group-sm btn-block  btn-group-justified">
+					<a class="btn btn-sm btn-block" ng-repeat="key in ui.sections.list" ng-show="key" ng-click="ui.sections.toggle(key)" ng-bind="key"></a>
+				</div>
+			</div>
 		</section>
 	</div>
 </div>
