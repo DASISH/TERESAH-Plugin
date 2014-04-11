@@ -17,41 +17,27 @@
 			</section>
 			<div class="col-lg-12">
 				<section id="keywords"  ng-show="item.keyword[0] && !(ui.sections.list['Keywords'])">
-					<h2>{{ 'keywords' | translate }}
+					<h2><span ng-bind="'keywords' | translate"></span>
 						<div class="pull-right">
-							<span class="btn btn-default" ng-click="ui.sections.toggle('Keywords')">
-                                                            <span class="glyphicon glyphicon-eye-close">                                                                
-                                                            </span>                                     
-                                                            {{ 'hide block' | translate }}
-                                                        </span>
-							<span class="dropdown">
-								<span class="dropdown-toggle btn btn-default">
-									<span class="glyphicon glyphicon-cog"></span>
-                                                                        {{ 'options' | translate }}
-								</span>
-								<ul class="dropdown-menu">
-									<li><a ng-click="ui.keywords.provider.show = !ui.keywords.provider.show">{{ 'providers' | translate }}</a></li>
-									<li><a ng-click="ui.keywords.taxonomy.show = !ui.keywords.taxonomy.show">{{ 'taxonomies' | translate }}</a></li>
-									<li><a ng-click="ui.keywords.show = !ui.keywords.show">{{ 'hide show' | translate }}</a></li>
-								</ul>
-							</span>
+							<span class="btn btn-default btn-sm" ng-click="ui.sections.toggle('Keywords')">
+					            <span class="glyphicon glyphicon-eye-close">                                                                
+					            </span>                                     
+					            <span ng-bind="'hide block' | translate"></span>
+					        </span>
 						</div>
 					</h2>
-					<div class="btn-group btn-block  btn-group-justified" ng-show="ui.keywords.provider.show">
-						<a class="btn" ng-click="ui.keywords.provider.selected = null" ng-class="{'btn-primary': (!ui.keywords.provider.selected), 'btn-success' : ui.keywords.provider.selected}">{{ 'all providers' | translate }}</a>
-						<a class="btn" ng-repeat="prov in item.keyword | kProviders" ng-click="ui.keywords.provider.selected = prov" ng-class="{'btn-primary': (ui.keywords.provider.selected == prov), 'btn-success' : (ui.keywords.provider.selected != prov)}" ng-bind="prov"></a>
+					<div  style="margin-top:10px;" ng-show="ui.keywords.show">
+						<div class="row" ng-repeat="(taxo, kw) in taxonomies">
+							<div class="col-md-4 text-right"><b><span ng-bind="taxo"></span> :</b></div>
+							<div class="col-md-8">
+								<ul class="list-inline"><li ng-repeat="k in kw" style="text-transform:capitalize;"><a tooltip="source : {{k.provider.domain}}" ng-href="#/facet/Keyword/{{k.identifier}}" ng-bind="k.keyword"></a></li></ul>
+							</div>
+						</div>
 					</div>
-					<div class="btn-group btn-group-sm btn-block  btn-group-justified" ng-show="ui.keywords.taxonomy.show">
-						<a class="btn" ng-click="ui.keywords.taxonomy.selected = null" ng-class="{'btn-primary': (!ui.keywords.taxonomy.selected), 'btn-success' : ui.keywords.taxonomy.selected}">{{ 'all taxonomies' | translate }}</a>
-						<a class="btn" ng-repeat="prov in item.keyword | kTaxonomies" ng-click="ui.keywords.taxonomy.selected = prov" ng-class="{'btn-primary': (ui.keywords.taxonomy.selected == prov), 'btn-success' : (ui.keywords.taxonomy.selected != prov)}" ng-bind="prov" style="text-transform:capitalize;"></a>
-					</div>
-					<ul  class="list-inline" style="margin-top:10px;" ng-show="ui.keywords.show">
-                                            <li ng-repeat="kw in item.keyword |filter:{provider.domain : ui.keywords.provider.selected, provider.taxonomy : ui.keywords.taxonomy.selected}"  class="badge" style="margin-right:10px; margin-bottom:5px; text-transform:capitalize;"  ><a ng-href="#/facet/Keyword/{{kw.identifier}}" ng-bind="kw.keyword"></a></li>
-					</ul>
 					<hr />
 				</section>
 				<section id="publications"  ng-show="item.publications[0] && !(ui.sections.list['Publications'])">
-					<h2>{{ 'publications' | translate }}
+					<h2><span ng-bind="'publications' | translate"></span>
 						<div class="pull-right">
 							<span class="btn btn-default" ng-click="ui.sections.toggle('Publications')"><span class="glyphicon glyphicon-eye-close"></span></span>
 							<span class="dropdown">
@@ -60,13 +46,13 @@
 								</span>
 								<ul class="dropdown-menu">
 									<li><a ng-click="ui.publications.filter.show = !ui.publications.filter.show">Filter</a></li>
-									<li><a ng-click="ui.publications.show = !ui.publications.show">{{ 'hide show' | translate }}</a></li>
+									<li><a ng-click="ui.publications.show = !ui.publications.show"><span ng-bind="'hide show' | translate"></span></a></li>
 								</ul>
 							</span>
 						</div>
 					</h2>
 					<div class="btn-group btn-group-sm btn-block  btn-group-justified" ng-show="ui.publications.filter.show">
-						<input class="form-control" type="text" ng-model="ui.publications.filter.input" placeholder="{{ 'filter the publications' | translate }}" />
+						<input class="form-control" type="text" ng-model="ui.publications.filter.input" placeholder="<span ng-bind="'filter the publications' | translate"></span>" />
 					</div>
 					<div style="margin-top:10px;" ng-show="ui.publications.show">
 						<p ng-repeat="pub in item.publications |filter:ui.publications.filter.input" ng-bind="pub.name"></p>
@@ -74,7 +60,7 @@
 					<hr />
 				</section>
 				<section id="projects" ng-show="item.projects[0] && !(ui.sections.list['Projects'])">
-					<h2>{{ 'projects' | translate }}
+					<h2><span ng-bind="'projects' | translate"></span>
 						<div class="pull-right">
 							<span class="btn btn-default" ng-click="ui.sections.toggle('Projects')"><span class="glyphicon glyphicon-eye-close"></span></span>
 							<span class="dropdown">
@@ -83,25 +69,25 @@
 								</span>
 								<ul class="dropdown-menu">
 									<li><a ng-click="ui.projects.filter.show = !ui.projects.filter.show">Filter</a></li>
-									<li><a ng-click="ui.projects.show = !ui.projects.show">{{ 'hide show' | translate }}</a></li>
+									<li><a ng-click="ui.projects.show = !ui.projects.show"><span ng-bind="'hide show' | translate"></span></a></li>
 								</ul>
 							</span>
 						</div>
 					</h2>
 					<div class="btn-group btn-group-sm btn-block  btn-group-justified" ng-show="ui.projects.filter.show">
-						<input class="form-control" type="text" ng-model="ui.projects.filter.input" placeholder="{{ 'filter the projects' | translate }}" />
+						<input class="form-control" type="text" ng-model="ui.projects.filter.input" placeholder="<span ng-bind="'filter the projects' | translate"></span>" />
 					</div>
 					<div style="margin-top:10px;" ng-show="ui.projects.show">
 						<div ng-repeat="pub in item.projects |filter:ui.projects.filter.input">
 							<h5 ng-bind="pub.name"></h5>
-							<p><small  ng-bind="pub.informations.description"></small> <small>{{ 'contact' | translate }} : <a ng-href="mailto:{{pub.informations.contact}}" ng-bind="pub.informations.contact"></a></small></p>
+							<p><small  ng-bind="pub.informations.description"></small> <small><span ng-bind="'contact' | translate"></span> : <a ng-href="mailto:{{pub.informations.contact}}" ng-bind="pub.informations.contact"></a></small></p>
 							
 						</div>
 					</div>
 					<hr />
 				</section>
 				<section id="features" ng-show="item.features[0] && !(ui.sections.list['Features'])">
-					<h2>{{ 'features' | translate }}
+					<h2><span ng-bind="'features' | translate"></span>
 						<div class="pull-right">
 							<span class="btn btn-default" ng-click="ui.sections.toggle('Features')"><span class="glyphicon glyphicon-eye-close"></span></span>
 							<span class="dropdown">
@@ -109,14 +95,14 @@
 									<span class="glyphicon glyphicon-cog"></span>
 								</span>
 								<ul class="dropdown-menu">
-									<li><a ng-click="ui.features.filter.show = !ui.features.filter.show">{{ 'filter' | translate }}</a></li>
-									<li><a ng-click="ui.features.show = !ui.features.show">{{ 'hide show' | translate }}</a></li>
+									<li><a ng-click="ui.features.filter.show = !ui.features.filter.show"><span ng-bind="'filter' | translate"></span></a></li>
+									<li><a ng-click="ui.features.show = !ui.features.show"><span ng-bind="'hide show' | translate"></span></a></li>
 								</ul>
 							</span>
 						</div>
 					</h2>
 					<div class="btn-group btn-group-sm btn-block  btn-group-justified" ng-show="ui.features.filter.show">
-						<input class="form-control" type="text" ng-model="ui.features.filter.input" placeholder="{{ 'filter the features' | translate }}" />
+						<input class="form-control" type="text" ng-model="ui.features.filter.input" placeholder="<span ng-bind="'filter the features' | translate"></span>" />
 					</div>
 					<div style="margin-top:10px;" ng-show="ui.features.show">
 						<ul ng-repeat="pub in item.features |filter:ui.features.filter.input">
@@ -128,7 +114,7 @@
 					<hr />
 				</section>
 				<section id="standards" ng-show="item.standards[0] && !(ui.sections.list['Standards'])">
-					<h2>{{ 'standards' | translate }}
+					<h2><span ng-bind="'standards' | translate"></span>
 						<div class="pull-right">
 							<span class="btn btn-default" ng-click="ui.sections.toggle('Standards')"><span class="glyphicon glyphicon-eye-close"></span></span>
 							<span class="dropdown">
@@ -136,14 +122,14 @@
 									<span class="glyphicon glyphicon-cog"></span>
 								</span>
 								<ul class="dropdown-menu">
-									<li><a ng-click="ui.standards.filter.show = !ui.standards.filter.show">{{ 'filter' | translate }}</a></li>
-									<li><a ng-click="ui.standards.show = !ui.standards.show">{{ 'hide show' | translate }}</a></li>
+									<li><a ng-click="ui.standards.filter.show = !ui.standards.filter.show"><span ng-bind="'filter' | translate"></span></a></li>
+									<li><a ng-click="ui.standards.show = !ui.standards.show"><span ng-bind="'hide show' | translate"></span></a></li>
 								</ul>
 							</span>
 						</div>
 					</h2>
 					<div class="btn-group btn-group-sm btn-block  btn-group-justified" ng-show="ui.standards.filter.show">
-						<input class="form-control" type="text" ng-model="ui.standards.filter.input" placeholder="{{ 'filter the standards' | translate }}" />
+						<input class="form-control" type="text" ng-model="ui.standards.filter.input" placeholder="<span ng-bind="'filter the standards' | translate"></span>" />
 					</div>
 					<div style="margin-top:10px;" ng-show="ui.standards.show">
 						<ul ng-repeat="std in item.standards |filter:ui.standards.filter.input">
@@ -153,7 +139,7 @@
 					<hr />
 				</section>
 				<section id="videos" ng-show="item.videos[0] && !(ui.sections.list['Videos'])">
-					<h2>{{ 'video' | translate }}
+					<h2><span ng-bind="'video' | translate"></span>
 						<div class="pull-right">
 							<span class="btn btn-default" ng-click="ui.sections.toggle('Videos')"><span class="glyphicon glyphicon-eye-close"></span></span>
 							<span class="dropdown">
@@ -161,19 +147,19 @@
 									<span class="glyphicon glyphicon-cog"></span>
 								</span>
 								<ul class="dropdown-menu">
-									<li><a ng-click="ui.videos.provider.show = !ui.videos.provider.show">{{ 'providers' | translate }}</a></li>
-									<li><a ng-click="ui.videos.filter.show = !ui.videos.filter.show">{{ 'filter' | translate }}</a></li>
-									<li><a ng-click="ui.videos.show = !ui.videos.show">{{ 'hide show' | translate }}</a></li>
+									<li><a ng-click="ui.videos.provider.show = !ui.videos.provider.show"><span ng-bind="'providers' | translate"></span></a></li>
+									<li><a ng-click="ui.videos.filter.show = !ui.videos.filter.show"><span ng-bind="'filter' | translate"></span></a></li>
+									<li><a ng-click="ui.videos.show = !ui.videos.show"><span ng-bind="'hide show' | translate"></span></a></li>
 								</ul>
 							</span>
 						</div>
 					</h2>
 					<div class="btn-group btn-block  btn-group-justified" ng-show="ui.videos.provider.show">
-						<a class="btn" ng-click="ui.videos.provider.selected = null" ng-class="{'btn-primary': (!ui.videos.provider.selected), 'btn-success' : ui.videos.provider.selected}">{{ 'all providers' | translate }}</a>
+						<a class="btn" ng-click="ui.videos.provider.selected = null" ng-class="{'btn-primary': (!ui.videos.provider.selected), 'btn-success' : ui.videos.provider.selected}"><span ng-bind="'all providers' | translate"></span></a>
 						<a class="btn" ng-repeat="prov in item.videos | vProviders" ng-click="ui.videos.provider.selected = prov; console.log(prov)" ng-class="{'btn-primary': (ui.videos.provider.selected == prov), 'btn-success' : (ui.videos.provider.selected != prov)}" ng-bind="prov"></a>
 					</div>
 					<div class="btn-group btn-group-sm btn-block  btn-group-justified" ng-show="ui.videos.filter.show">
-						<input class="form-control" type="text" ng-model="ui.videos.filter.input" placeholder="{{ 'filter the standards' | translate }}" />
+						<input class="form-control" type="text" ng-model="ui.videos.filter.input" placeholder="<span ng-bind="'filter the standards' | translate"></span>" />
 					</div>
 					<div style="margin-top:10px;" ng-show="ui.videos.show">
 						<div class="row">
@@ -195,23 +181,23 @@
 			</div>
 			<div class="panel-body">
 				<dl>
-					<dt ng-show="item.type">{{ 'tool type' | translate }}</dt>
+					<dt ng-show="item.type"><span ng-bind="'tool type' | translate"></span></dt>
 						<dd ng-repeat="type in item.type" legend="{{type.uri}}"><a ng-href="#/facet/ToolType/{{type.identifier}}" ng-bind="type.type"></a></dd>
-					<dt ng-show="item.licence">{{ 'licence' | translate }}</dt>
+					<dt ng-show="item.licence"><span ng-bind="'licence' | translate"></span></dt>
 						<dd ng-repeat="licence in item.licence" ng-bind="licence.name"></dd>
-					<dt ng-show="item.licence">{{ 'licence type' | translate }}</dt>
+					<dt ng-show="item.licence"><span ng-bind="'licence type' | translate"></span></dt>
 						<dd ng-repeat="licence in item.licence" ng-bind="licence.type"></dd>
-					<dt ng-show="item.suite">{{ 'suite' | translate }}</dt>
+					<dt ng-show="item.suite"><span ng-bind="'suite' | translate"></span></dt>
 						<dd ng-repeat="suite in item.suite" ng-bind="suite.name"></dd>
-					<dt ng-show="item.descriptions.homepage">{{ 'homepage' | translate }}</dt>
+					<dt ng-show="item.descriptions.homepage"><span ng-bind="'homepage' | translate"></span></dt>
 						<dd><a ng-href="{{item.descriptions.homepage}}" ng-bind="item.descriptions.homepage"></a></dd>
-					<dt ng-show="item.applicationType">{{ 'application type(s)' | translate }}</dt>
+					<dt ng-show="item.applicationType"><span ng-bind="'application type(s)' | translate"></span></dt>
 						<dd ng-repeat="os in item.applicationType" ng-bind="os.name"></dd>
-					<dt ng-show="item.platform">{{ 'platform(s)' | translate }}</dt>
+					<dt ng-show="item.platform"><span ng-bind="'platform(s)' | translate"></span></dt>
 						<dd ng-repeat="os in item.platform" ng-bind="os"></dd>
-					<dt ng-show="item.developers">{{ 'developer(s)' | translate }}</dt>
+					<dt ng-show="item.developers"><span ng-bind="'developer(s)' | translate"></span></dt>
 	                	<dd ng-repeat="developer in item.developers"><a ng-href="#/facet/Developer/{{developer.identifier}}" ng-bind="developer.name"></a></dd>
-	                <dt ng-show="item.similar">{{ 'similar tools' | translate }}</dt>
+	                <dt ng-show="item.similar"><span ng-bind="'similar tools' | translate"></span></dt>
 	                	<dd ng-repeat="similar in item.similar"><a ng-href="#/tool/{{similar.shortname}}" ng-bind="similar.title"></a></dd>        
 				</dl>
 			</div>

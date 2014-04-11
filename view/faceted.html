@@ -32,7 +32,7 @@
 						</div>
 					</section>
 					<div class="panel-footer" ng-show="ui.facets.used[facet.facetParam].possibilities[0]">
-						<span ng-repeat="option in ui.facets.used[facet.facetParam].possibilities | filter:{active:true}" class="badge" ng-click="ui.facets.del(facet.facetParam, option.id)">{{option.name}}</span>
+						<span ng-repeat="option in ui.facets.used[facet.facetParam].possibilities | filter:{active:true}" class="badge" ng-click="ui.facets.del(facet.facetParam, option.id)"><span ng-bind="option.name"></span></span>
 					</div>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 			
 				
 			<div class="btn-group btn-block btn-group-justified btn-col-group">
-				<span class="btn btn-sm"><b>{{ 'order by' | translate }}</b></span>
+				<span class="btn btn-sm"><b><span ng-bind="'order by' | translate"></span></b></span>
 				<span class="btn btn-sm btn-default" ng-class="{'btn-primary' : ui.facets.params.orderBy == 'title'}"  ng-click="ui.facets.params.orderBy = 'title';"
 					ng-bind="'title' | translate">
 				</span>
@@ -57,7 +57,7 @@
 			</div>
 			<hr />
 			<p>
-			<button ng-click="ui.facets.submit()" class="btn btn-primary btn-lg btn-block">{{ 'search' | translate }}</button>
+			<button ng-click="ui.facets.submit()" class="btn btn-primary btn-lg btn-block"><span ng-bind="'search' | translate"></span></button>
 			</p>
 		</div>
 		<div class="col-lg-9">
@@ -74,14 +74,14 @@
 									</div>
 									<div class="panel-body">
 										<div class="btn-group btn-group-sm" style="margin-bottom:5px;">
-											<a class="btn btn-default" ng-class="{'active' : !facet.option.case_insensitivity}" ng-click="facet.option.case_insensitivity = !facet.option.case_insensitivity; facet.possibilities = ui.facets.search(facet);">{{ 'case sensitive' | translate }}</a>
+											<a class="btn btn-default" ng-class="{'active' : !facet.option.case_insensitivity}" ng-click="facet.option.case_insensitivity = !facet.option.case_insensitivity; facet.possibilities = ui.facets.search(facet);"><span ng-bind="'case sensitive' | translate"></span></a>
 										</div>
 										
 										<input type="text" class="form-control" ng-model="facet.filter" placeholder="Filter your {{facet.facetLegend}}" ng-change="facet.possibilities = ui.facets.search(facet)"/>
 										<div style="max-height:200px; overflow:auto;">
 											<div class="checkbox" ng-repeat="keyword in facet.possibilities.facets" ng-click="ui.facets.select(facet, keyword)">
 												<label>
-													<input type="checkbox" id="{{facet.facetParam}}-{{keyword.id}}" ng-model="keyword.active" value="{{keyword.id}}" /> {{keyword.name}}
+													<input type="checkbox" id="{{facet.facetParam}}-{{keyword.id}}" ng-model="keyword.active" value="{{keyword.id}}" /> <span ng-bind="keyword.name"></span>
 												</label>
 											</div>
 										</div>
@@ -92,10 +92,10 @@
 						</ul>
 				</div>
 				<section id="errors" ng-show="!results && ui.facets.error">
-					<div class="alert alert-warning">{{ui.facets.error}}</div>
+					<div class="alert alert-warning"><span ng-bind="ui.facets.error"></span></div>
 				</section>
 				<section id="viewContent" ng-show="results.items">
-					<p>Tools from <span ng-bind="ui.parameters.start + 1"></span> {{ 'to' | translate }} <span ng-bind="ui.parameters.limit + ui.parameters.start" ng-show="ui.parameters.total > 20"></span><span ng-bind="ui.parameters.total" ng-show="ui.parameters.total < 20"></span> on <span ng-bind="ui.parameters.total"></span> {{ 'available' | translate }}</p>
+					<p>Tools from <span ng-bind="ui.parameters.start + 1"></span> <span ng-bind="'to' | translate"></span> <span ng-bind="ui.parameters.limit + ui.parameters.start" ng-show="ui.parameters.total > 20"></span><span ng-bind="ui.parameters.total" ng-show="ui.parameters.total < 20"></span> on <span ng-bind="ui.parameters.total"></span> <span ng-bind="'available' | translate"></span></p>
 					<hr />
                                         <div class="row" ng-show="ui.pages.totalItem > ui.pages.itemPerPage">
 						<pagination total-items="ui.pages.totalItem" items-per-page="ui.pages.itemPerPage" page="ui.pages.current" max-size="5" class="pagination-small" boundary-links="true" rotate="false" on-select-page="ui.pages.change(page)" num-pages="ui.pages.total"></pagination>

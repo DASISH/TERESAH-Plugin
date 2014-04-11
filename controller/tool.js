@@ -1,7 +1,10 @@
 var Tool = portal.controller('ToolCtrl', ['$scope', 'ui',  'Item', function($scope, $ui, $item) {
 
 	$scope.item = $item.data;
-	
+	$scope.taxonomies = $ui.taxonomy($scope.item.keyword);
+
+	console.log($scope.taxonomies);
+
 	//Will change
 	if($scope.item.descriptions.description[0]) {
 		$scope.item.desc = $scope.item.descriptions.description[0];

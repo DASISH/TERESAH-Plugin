@@ -11,6 +11,22 @@ portal.factory("ui", function($window, $rootScope, $cookies, Restangular, $locat
                 return $location.search();
                 ;
             }
+        },
+        taxonomy : function(arr) {
+            var ret = {}
+            if(arr !== "undefined") {
+                angular.forEach(arr, function(value, key) {
+                    if(value.provider !== "undefined" && value.provider.taxonomy !== "undefined") {
+                        if(!ret.hasOwnProperty(value.provider.taxonomy)) {
+                            ret[value.provider.taxonomy] = [];
+                        }
+                        ret[value.provider.taxonomy].push(value);
+                    } else {
+                        ret["Unknown Taxonomy"].push(value);
+                    }
+                });
+            }
+            return ret;
         }
     };
     return ui;

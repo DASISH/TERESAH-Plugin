@@ -1,11 +1,11 @@
 <ol class="breadcrumb">
-  <li><a href="#/">{{ 'home' | translate }}</a></li>
-  <li><a href="#/facet">{{ 'browse by facet' | translate }}</a></li>
+  <li><a href="#/"><span ng-bind="'home' | translate"></span></a></li>
+  <li><a href="#/facet"><span ng-bind="'browse by facet' | translate"></span></a></li>
 </ol>
 
 <section id="viewHeader">
 	<div class="page-header">
-		<h1>{{ 'browse facets' | translate }}</h1>		
+		<h1><span ng-bind="'browse facets' | translate"></span></h1>		
 	</div>
 </section>
 <section id="viewContent" ng-show="results.items">

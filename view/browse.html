@@ -1,6 +1,6 @@
 <ol class="breadcrumb">
-  <li><a href="#/">{{ 'home' | translate }}</a></li>
-  <li><a href="#/facet">{{ 'browse by facet' | translate }}</a></li>
+  <li><a href="#/"><span ng-bind="'home' | translate"></span></a></li>
+  <li><a href="#/facet"><span ng-bind="'browse by facet' | translate"></span></a></li>
   <li><a href="#/facet/{{results.facet.facet.facetParam}}" ng-bind="results.facet.facet.facetLegend"></a></li>
   <li><a href="#/facet/{{results.facet.facet.facetParam}}/{{results.facet.currentFacet.identifier}}" ng-bind="results.facet.currentFacet.name || results.facet.keyword"></a></li>
 </ol>
@@ -11,36 +11,36 @@
 		
 		<section ng-show="results.facet.provider">
 			<dl class="dl-horizontal">
-				<dt>{{ 'taxonomy' | translate }}</dt>
+				<dt><span ng-bind="'taxonomy' | translate"></span></dt>
 				<dd ng-bind="results.facet.provider.taxonomy"></dd>
-				<dt>{{ 'source' | translate }}</dt>
+				<dt><span ng-bind="'source' | translate"></span></dt>
 				<dd ><a ng-href="results.facet.provider.uri" target="_blank" ng-bind="results.facet.provider.uri"></a></dd>
 			</dl>
 		</section>
 		
 		<section ng-show="results.facet.uri">
 			<dl class="dl-horizontal">
-				<dt>{{ 'source' | translate }}</dt>
+				<dt><span ng-bind="'source' | translate"></span></dt>
 				<dd ><a ng-href="results.facet.uri" target="_blank" ng-bind="results.facet.uri"></a></dd>
 			</dl>
 		</section>
 		
 		<section ng-show="results.facet.type">
 			<dl class="dl-horizontal">
-				<dt>{{ 'type' | translate }}</dt>
+				<dt><span ng-bind="'type' | translate"></span></dt>
 				<dd ng-bind="results.facet.type"></dd>
 			</dl>
 		</section>
 		
 		<section ng-show="results.facet.contact">
 			<dl class="dl-horizontal">
-				<dt>{{ 'contact' | translate }}</dt>
+				<dt><span ng-bind="'contact' | translate"></span></dt>
 				<dd ng-bind="results.facet.contact"></dd>
 			</dl>
 		</section>
 		
 		
-		<p>{{ 'tools from' | translate }} <span ng-bind="ui.parameters.start + 1"></span> {{ 'to' | translate }} <span ng-bind="ui.parameters.limit + ui.parameters.start" ng-show="ui.parameters.total > 20"></span><span ng-bind="ui.parameters.total" ng-show="ui.parameters.total < 20"></span> {{ 'on' | translate }} <span ng-bind="ui.parameters.total"></span> {{ 'available' | translate }}</p>
+		<p><span ng-bind="'tools from' | translate"></span> <span ng-bind="ui.parameters.start + 1"></span> <span ng-bind="'to' | translate"></span> <span ng-bind="ui.parameters.limit + ui.parameters.start" ng-show="ui.parameters.total > 20"></span><span ng-bind="ui.parameters.total" ng-show="ui.parameters.total < 20"></span> <span ng-bind="'on' | translate"></span> <span ng-bind="ui.parameters.total"></span> <span ng-bind="'available' | translate"></span></p>
 		
 	</div>
 </section>

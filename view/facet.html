@@ -1,14 +1,14 @@
 <ol class="breadcrumb">
-  <li><a href="#/">{{ 'home' | translate }}</a></li>
-  <li><a href="#/facet">{{ 'browse by facet' | translate }}</a></li>
+  <li><a href="#/"><span ng-bind="'home' | translate"></span></a></li>
+  <li><a href="#/facet"><span ng-bind="'browse by facet' | translate"></span></a></li>
   <li><a ng-href="#/facet/{{results.facet.facetParam}}" ng-bind="results.facet.facetLegend"></a></li>
 </ol>
 
 <section id="viewHeader">
 	<div class="page-header">
-		<h1><span ng-bind="results.facet.facetLegend"></span> <small>{{ 'browse facets' | translate }}</small></h1>	
+		<h1><span ng-bind="results.facet.facetLegend"></span> <small><span ng-bind="'browse facets' | translate"></span></small></h1>	
 		
-		<p>{{ 'facets elements from' | translate }} <span ng-bind="ui.parameters.start + 1"></span> {{ 'to' | translate }} <span ng-bind="ui.parameters.limit + ui.parameters.start" ng-show="ui.parameters.total > 20"></span><span ng-bind="ui.parameters.total" ng-show="ui.parameters.total < 20"></span> {{ 'on' | translate }} <span ng-bind="ui.parameters.total"></span> {{ 'available' | translate }}</p>
+		<p><span ng-bind="'facets elements from' | translate"></span> <span ng-bind="ui.parameters.start + 1"></span> <span ng-bind="'to' | translate"></span> <span ng-bind="ui.parameters.limit + ui.parameters.start" ng-show="ui.parameters.total > 20"></span><span ng-bind="ui.parameters.total" ng-show="ui.parameters.total < 20"></span> <span ng-bind="'on' | translate"></span> <span ng-bind="ui.parameters.total"></span> <span ng-bind="'available' | translate"></span></p>
 	</div>
 </section>
 <section id="viewContent" ng-show="results.items">
