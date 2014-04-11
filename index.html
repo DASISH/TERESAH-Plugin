@@ -20,14 +20,14 @@
         <div class="navbar navbar-inverse navbar-fixed-top" ng-controller="TopCtrl">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <button type="button" class="navbar-toggle" ng-click="ui.mobile.toggle()">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">TERESAH</a>
                 </div>
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse" ng-class="ui.mobile.css">
                     <ul class="nav navbar-nav">
                         <li ng-class="ui.routes.getRoute('HomeCtrl')"><a href="#/" ng-bind=" 'home' | translate"></a></li>
                         <li ng-class="ui.routes.getRoute('facetListCtrl')"><a href="#/facet" ng-bind="'browse' | translate"></a></li>

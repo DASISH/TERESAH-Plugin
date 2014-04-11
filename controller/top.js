@@ -30,6 +30,16 @@ var Top = portal.controller('TopCtrl', ['$scope', "$q", "$location", "$route", "
 					return "active";
 				}
 			}
+		},
+		mobile : {
+			toggle : function() {
+				if($scope.ui.mobile.css === false) {
+					$scope.ui.mobile.css = "in";
+				} else {
+					$scope.ui.mobile.css = false;
+				}
+			},
+			css : false
 		}
 	}
 	$scope.$on('$routeChangeStart', function(next, current) { 
